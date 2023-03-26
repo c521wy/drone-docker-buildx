@@ -10,7 +10,7 @@ unset DOCKER_HOST
 
 docker info
 
-docker login -u "$PLUGIN_USERNAME" -p "$PLUGIN_PASSWORD" "$PLUGIN_REGISTRY"
+docker login -u "$PLUGIN_USERNAME" -p "$PLUGIN_PASSWORD" "${PLUGIN_REGISTRY:-docker.io}"
 
 docker buildx create \
   --driver docker-container \
@@ -19,20 +19,20 @@ docker buildx create \
   --bootstrap
 
 
-docker_image_tag="$DRONE_BRANCH"
+docker_image_tag="${DRONE_BRANCH:-}"
 
-if [[ "$DRONE_BRANCH" = "master" || "$DRONE_BRANCH" = "main" ]]; then
+if [[ "$docker_image_tag" = "master" || "$docker_image_tag" = "main" ]]; then
   docker_image_tag="latest"
 fi
 
-if [[ "$DRONE_TAG" != "" ]]; then
+if [[ "${DRONE_TAG:-}" != "" ]]; then
   docker_image_tag="$DRONE_TAG"
 fi
 
 
 docker_build_cmd="docker buildx build"
 
-if [[ "$PLUGIN_PLATFORM" != "" ]]; then
+if [[ "${PLUGIN_PLATFORM:-}" != "" ]]; then
   docker_build_cmd="$docker_build_cmd --platform $PLUGIN_PLATFORM"
 fi
 
