@@ -1,0 +1,24 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+clone:
+  depth: 1
+
+steps:
+  - name: docker tags
+    image: git.hd.caiweiqiang.cn:5001/drone-plugins/docker-tags:v1.0.1
+
+  - name: docker build
+    image: plugins/docker
+    privileged: true
+    settings:
+      registry: git.hd.caiweiqiang.cn:5001
+      username: caiweiqiang
+      password:
+        from_secret: gitea.token
+      repo: git.hd.caiweiqiang.cn:5001/${DRONE_REPO}
+
+node:
+  ID: my-bandwagon-runner
