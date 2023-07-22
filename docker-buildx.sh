@@ -1,14 +1,23 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -eux
 
 /usr/local/bin/dockerd-entrypoint.sh &
 
-sleep 30
-
 unset DOCKER_HOST
 
-docker info
+for ((i = 0; ; ++i)); do
+  if docker info 2>/dev/null; then
+    break
+  fi
+
+  if ((i > 60)); then
+    docker info
+    exit 1
+  fi
+
+  sleep 1
+done
 
 docker login -u "$PLUGIN_USERNAME" -p "$PLUGIN_PASSWORD" "${PLUGIN_REGISTRY:-docker.io}"
 
@@ -17,7 +26,6 @@ docker buildx create \
   --driver-opt image=git.hd.caiweiqiang.cn:5001/docker-images/cache/moby/buildkit \
   --use \
   --bootstrap
-
 
 docker_image_tag="${DRONE_BRANCH:-}"
 
@@ -28,7 +36,6 @@ fi
 if [[ "${DRONE_TAG:-}" != "" ]]; then
   docker_image_tag="$DRONE_TAG"
 fi
-
 
 docker_build_cmd="docker buildx build"
 

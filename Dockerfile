@@ -1,6 +1,6 @@
 FROM docker:dind
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git bash
 
 COPY docker-buildx.sh /usr/local/bin/
 
