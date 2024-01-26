@@ -12,7 +12,7 @@ drone plugin to build docker image using `docker buildx` command
 | `repo`                |    Y     |   String    |           | `-t` option used in `docker buildx build` command without image tag                      |
 | `platform`            |    N     |   String    |           | `--platform` option used in `docker buildx build` command, same as drone runner if empty |
 | `cache`               |    N     | `none`,`s3` |   none    | enable cache                                                                             |
-| `cache_s3_region`     |    N     |   String    |           | see https://docs.docker.com/build/cache/backends/s3/                                     |
+| `cache_s3_region`     |    N     |   String    | us-east-1 | see https://docs.docker.com/build/cache/backends/s3/                                     |
 | `cache_s3_bucket`     |    Y     |   String    |           |                                                                                          |
 | `cache_s3_endpoint`   |    Y     |   String    |           |                                                                                          |
 | `cache_s3_access_key` |    Y     |   String    |           |                                                                                          |
