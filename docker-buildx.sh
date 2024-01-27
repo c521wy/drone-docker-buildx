@@ -46,8 +46,8 @@ fi
 docker_build_cmd="$docker_build_cmd -t $PLUGIN_REPO:$docker_image_tag"
 
 if [[ "${PLUGIN_CACHE:-none}" = "s3" ]]; then
-  docker_build_cmd="$docker_build_cmd --cache-to   type=s3,region=${PLUGIN_CACHE_S3_REGION:-us-east-1},bucket=${PLUGIN_CACHE_S3_BUCKET},use_path_style=true,blobs_prefix=docker-build-cache/blobs/,manifests_prefix=docker-build-cache/manifests/,endpoint_url=${PLUGIN_CACHE_S3_ENDPOINT},access_key_id=${PLUGIN_CACHE_S3_ACCESS_KEY},secret_access_key=${PLUGIN_CACHE_S3_SECRET_KEY},name=${DRONE_REPO},mode=${PLUGIN_CACHE_MODE:-min},ignore-error=${PLUGIN_CACHE_IGNORE_ERROR:-false}"
-  docker_build_cmd="$docker_build_cmd --cache-from type=s3,region=${PLUGIN_CACHE_S3_REGION:-us-east-1},bucket=${PLUGIN_CACHE_S3_BUCKET},use_path_style=true,blobs_prefix=docker-build-cache/blobs/,manifests_prefix=docker-build-cache/manifests/,endpoint_url=${PLUGIN_CACHE_S3_ENDPOINT},access_key_id=${PLUGIN_CACHE_S3_ACCESS_KEY},secret_access_key=${PLUGIN_CACHE_S3_SECRET_KEY},name=${DRONE_REPO}"
+  docker_build_cmd="$docker_build_cmd --cache-to   type=s3,region=${PLUGIN_CACHE_S3_REGION:-us-east-1},bucket=${PLUGIN_CACHE_S3_BUCKET},use_path_style=true,blobs_prefix=docker-build-cache/blobs/,manifests_prefix=docker-build-cache/manifests/,endpoint_url=${PLUGIN_CACHE_S3_ENDPOINT},access_key_id=${PLUGIN_CACHE_S3_ACCESS_KEY},secret_access_key=${PLUGIN_CACHE_S3_SECRET_KEY},name=${DRONE_REPO}:$docker_image_tag,mode=${PLUGIN_CACHE_MODE:-min},ignore-error=${PLUGIN_CACHE_IGNORE_ERROR:-false}"
+  docker_build_cmd="$docker_build_cmd --cache-from type=s3,region=${PLUGIN_CACHE_S3_REGION:-us-east-1},bucket=${PLUGIN_CACHE_S3_BUCKET},use_path_style=true,blobs_prefix=docker-build-cache/blobs/,manifests_prefix=docker-build-cache/manifests/,endpoint_url=${PLUGIN_CACHE_S3_ENDPOINT},access_key_id=${PLUGIN_CACHE_S3_ACCESS_KEY},secret_access_key=${PLUGIN_CACHE_S3_SECRET_KEY},name=${DRONE_REPO}:$docker_image_tag"
 fi
 
 docker_build_cmd="$docker_build_cmd --push ."
