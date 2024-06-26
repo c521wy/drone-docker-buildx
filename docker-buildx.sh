@@ -39,6 +39,11 @@ fi
 
 docker_build_cmd="docker buildx build --pull=true"
 
+docker_build_cmd="$docker_build_cmd --label org.opencontainers.image.created=$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+docker_build_cmd="$docker_build_cmd --label org.opencontainers.image.revision=${DRONE_COMMIT}"
+docker_build_cmd="$docker_build_cmd --label org.opencontainers.image.source=${DRONE_GIT_HTTP_URL}"
+docker_build_cmd="$docker_build_cmd --label org.opencontainers.image.url=${DRONE_REPO_LINK}"
+
 if [[ "${PLUGIN_PLATFORM:-}" != "" ]]; then
   docker_build_cmd="$docker_build_cmd --platform $PLUGIN_PLATFORM"
 fi
