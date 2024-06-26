@@ -2,7 +2,7 @@
 
 set -eux
 
-/usr/local/bin/dockerd-entrypoint.sh &
+/usr/local/bin/dockerd &
 
 unset DOCKER_HOST
 
@@ -37,7 +37,7 @@ if [[ "${DRONE_TAG:-}" != "" ]]; then
   docker_image_tag="$DRONE_TAG"
 fi
 
-docker_build_cmd="docker buildx build"
+docker_build_cmd="docker buildx build --network host"
 
 if [[ "${PLUGIN_PLATFORM:-}" != "" ]]; then
   docker_build_cmd="$docker_build_cmd --platform $PLUGIN_PLATFORM"
