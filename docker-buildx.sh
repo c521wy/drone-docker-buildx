@@ -37,7 +37,7 @@ if [[ "${DRONE_TAG:-}" != "" ]]; then
   docker_image_tag="$DRONE_TAG"
 fi
 
-docker_build_cmd="docker buildx build --network host"
+docker_build_cmd="docker buildx build"
 
 if [[ "${PLUGIN_PLATFORM:-}" != "" ]]; then
   docker_build_cmd="$docker_build_cmd --platform $PLUGIN_PLATFORM"
