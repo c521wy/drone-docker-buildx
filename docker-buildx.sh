@@ -23,7 +23,7 @@ docker login -u "$PLUGIN_USERNAME" -p "$PLUGIN_PASSWORD" "${PLUGIN_REGISTRY:-doc
 
 docker buildx create \
   --driver docker-container \
-  --driver-opt image="${PLUGIN_BUILDKIT_IMAGE:-git.hd.caiweiqiang.cn:5001/docker-images/cache/moby/buildkit}" \
+  --driver-opt image="${PLUGIN_BUILDKIT_IMAGE:-git.hd.caiweiqiang.cn:5001/docker-images/cache/moby/buildkit:v0.24.0}" \
   --use \
   --bootstrap
 
