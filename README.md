@@ -15,6 +15,7 @@ drone plugin to build docker image using `docker buildx` command
 | `cache`               |    N     | `none`,`s3` |                                 none                                 | enable cache                                                                             |
 | `cache_s3_region`     |    N     |   String    |                              us-east-1                               | see https://docs.docker.com/build/cache/backends/s3/                                     |
 | `cache_s3_bucket`     |    Y     |   String    |                                                                      |                                                                                          |
+| `cache_s3_prefix`     |    N     |   String    |         ${DRONE_REPO}/${docker_image_tag}/docker-build-cache         | the path of cache in S3 bucket                                                           |
 | `cache_s3_endpoint`   |    Y     |   String    |                                                                      |                                                                                          |
 | `cache_s3_access_key` |    Y     |   String    |                                                                      |                                                                                          |
 | `cache_s3_secret_key` |    Y     |   String    |                                                                      |                                                                                          |
