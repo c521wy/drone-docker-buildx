@@ -55,7 +55,7 @@ for tag in "${docker_image_tag[@]}"; do
 done
 
 if [[ "${PLUGIN_CACHE:-none}" = "s3" ]]; then
-  prefix=${PLUGIN_CACHE_S3_PREFIX:-${DRONE_REPO}/docker-build-cache}
+  prefix=${PLUGIN_CACHE_S3_PREFIX:-${DRONE_REPO}/docker-build-cache}/
 
   name=()
   [[ -n "${DRONE_BRANCH:-}" ]] && name+=("git-branch:${DRONE_BRANCH}")
