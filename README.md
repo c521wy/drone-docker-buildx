@@ -10,7 +10,7 @@ drone plugin to build docker image using `docker buildx` command
 | `registry`            |    N     |   String    |                          docker.io                           | used in `docker login` command, use docker hub if empty                                  |
 | `username`            |    Y     |   String    |                                                              | used in `docker login` command                                                           |
 | `password`            |    Y     |   String    |                                                              | used in `docker login` command                                                           |
-| `repo`                |    N     |   String    |               ${PLUGIN_REGISTRY}/${DRONE_REPO}               | `-t` option used in `docker buildx build` command without image tag                      |
+| `repo`                |    N     |   String    |               ${PLUGIN_REGISTRY}/${DRONE_REPO}               | image name without tag                                                                   |
 | `tags`                |    N     |   String    |                                                              | multiple tags separated by `,`, if empty, computed from git branch and git tag           |
 | `platform`            |    N     |   String    |                                                              | `--platform` option used in `docker buildx build` command, same as drone runner if empty |
 | `cache`               |    N     | `none`,`s3` |                             none                             | enable cache                                                                             |
