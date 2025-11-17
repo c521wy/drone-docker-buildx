@@ -10,12 +10,13 @@ drone plugin to build docker image using `docker buildx` command
 | `registry`            |    N     |   String    |                          docker.io                           | used in `docker login` command, use docker hub if empty                                  |
 | `username`            |    Y     |   String    |                                                              | used in `docker login` command                                                           |
 | `password`            |    Y     |   String    |                                                              | used in `docker login` command                                                           |
-| `repo`                |    Y     |   String    |                                                              | `-t` option used in `docker buildx build` command without image tag                      |
+| `repo`                |    N     |   String    |               ${PLUGIN_REGISTRY}/${DRONE_REPO}               | `-t` option used in `docker buildx build` command without image tag                      |
+| `tags`                |    N     |   String    |                                                              | multiple tags separated by `,`, if empty, computed from git branch and git tag           |
 | `platform`            |    N     |   String    |                                                              | `--platform` option used in `docker buildx build` command, same as drone runner if empty |
 | `cache`               |    N     | `none`,`s3` |                             none                             | enable cache                                                                             |
 | `cache_s3_region`     |    N     |   String    |                          us-east-1                           | see https://docs.docker.com/build/cache/backends/s3/                                     |
 | `cache_s3_bucket`     |    Y     |   String    |                                                              |                                                                                          |
-| `cache_s3_prefix`     |    N     |   String    |     ${DRONE_REPO}/${docker_image_tag}/docker-build-cache     | the path of cache in S3 bucket                                                           |
+| `cache_s3_prefix`     |    N     |   String    |               ${DRONE_REPO}/docker-build-cache               | the path of cache in S3 bucket                                                           |
 | `cache_s3_endpoint`   |    Y     |   String    |                                                              |                                                                                          |
 | `cache_s3_access_key` |    Y     |   String    |                                                              |                                                                                          |
 | `cache_s3_secret_key` |    Y     |   String    |                                                              |                                                                                          |
