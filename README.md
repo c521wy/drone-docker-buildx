@@ -11,17 +11,23 @@ drone plugin to build docker image using `docker buildx` command
 | `username`            |    Y     |   String    |                                                              | used in `docker login` command                                                           |
 | `password`            |    Y     |   String    |                                                              | used in `docker login` command                                                           |
 | `repo`                |    N     |   String    |               ${PLUGIN_REGISTRY}/${DRONE_REPO}               | image name without tag                                                                   |
-| `tags`                |    N     |   String    |                                                              | multiple tags separated by `,`, if empty, computed from git branch and git tag           |
+| `tags`                |    N     |   String    |                                                              | multiple tags separated by comma, if empty, computed from git branch and git tag         |
 | `platform`            |    N     |   String    |                                                              | `--platform` option used in `docker buildx build` command, same as drone runner if empty |
 | `cache`               |    N     | `none`,`s3` |                             none                             | enable cache                                                                             |
 | `cache_s3_region`     |    N     |   String    |                          us-east-1                           | see https://docs.docker.com/build/cache/backends/s3/                                     |
-| `cache_s3_bucket`     |    Y     |   String    |                                                              |                                                                                          |
-| `cache_s3_prefix`     |    N     |   String    |               ${DRONE_REPO}/docker-build-cache               | the path of cache in S3 bucket                                                           |
-| `cache_s3_endpoint`   |    Y     |   String    |                                                              |                                                                                          |
-| `cache_s3_access_key` |    Y     |   String    |                                                              |                                                                                          |
-| `cache_s3_secret_key` |    Y     |   String    |                                                              |                                                                                          |
+| `cache_s3_bucket`     |    Y     |   String    |                                                              | required if `cache` is `s3`                                                              |
+| `cache_s3_prefix`     |    N     |   String    |               ${DRONE_REPO}/docker-build-cache               | the path of cache in bucket                                                              |
+| `cache_s3_endpoint`   |    Y     |   String    |                                                              | required if `cache` is `s3`                                                              |
+| `cache_s3_access_key` |    Y     |   String    |                                                              | required if `cache` is `s3`                                                              |
+| `cache_s3_secret_key` |    Y     |   String    |                                                              | required if `cache` is `s3`                                                              |
 | `cache_mode`          |    N     | `min`,`max` |                             min                              | see https://docs.docker.com/build/cache/backends/#cache-mode                             |
 | `cache_ignore_error`  |    N     |   Boolean   |                            false                             | ignore errors caused by failed cache exports.                                            |
+
+## image tag compute rule
+
+- if `${DRONE_BRANCH}` is not empty, add `${DRONE_BRANCH}` to tags
+- if `${DRONE_BRANCH}` is `master` or `main`, add `latest` to tags
+- if `${DRONE_TAG}` is not empty, add `${DRONE_TAG}` to tags
 
 ## example
 
